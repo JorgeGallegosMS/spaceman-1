@@ -59,7 +59,7 @@ def get_guessed_word(secret_word, letters_guessed):
     for i, j in enumerate(secret_word):
         if j in letters_guessed:
             underscore_list[i] = j
-    print(underscore_list)
+    return " ".join(underscore_list)
 
 
 def is_guess_in_word(guess, secret_word):
@@ -93,27 +93,54 @@ def spaceman(secret_word):
     # TODO: show the player information about the game according to the project spec
     
     # TODO: Ask the player to guess one letter per round and check that it is only one letter
+    tries = 1 * len(secret_word)
     keep_going = True
     while keep_going:
         guess = input("Enter an alphabet\n")
         if len(guess) != 1 or not guess.isalpha():
+            print("Enter only one Alphabet at a time\n")
+            tries -= 1
             continue
-        keep_going = False
-    
-    # TODO: Check if the guessed letter is in the secret or not and give the player feedback
+        # keep_going = False
+        
+        # TODO: Check if the guessed letter is in the secret or not and give the player feedback
         if guess in secret_word:
-            pass
-        else:
-            pass
+            letters_guessed.append(guess)
+            get_guessed_word(secret_word, letters_guessed)
+            tries -= 1
+            print(secret_word)
+            print("You got that right\n {} tries left to guess the rest of the letters".format(tries))
+            print(" ".join(letters_guessed))
+
+        elif guess not in secret_word:
+            print(secret_word)
+            letters_guessed.append(guess)
+            tries -= 1
+            get_guessed_word(secret_word, letters_guessed)
+            print("Wrong letter, try again")
     
     # TODO: show the guessed word so far
+        print("The letters you have guessed so far are:")
+        print(get_guessed_word(secret_word, letters_guessed))
     
     # TODO: check if the game has been won or lost
-
+        if is_word_guessed(secret_word, letters_guessed):
+            print("You won!")
+            keep_going = False
+        
+        if tries < 0:
+            print("Game Over")
+            print("The word was {}, {} chars long".format(secret_word, len(secret_word)))
+            keep_going = False
+            
 
 # These function calls that will start the game
 # secret_word = load_word()
 # spaceman(load_word())
 
-
-get_guessed_word('apple', letters_guessed)
+#
+# loaded_word = load_word()
+# print(loaded_word)
+# get_guessed_word(loaded_word, letters_guessed)
+# get_guessed_word(loaded_word, letters_guessed)
+spaceman(load_word())
