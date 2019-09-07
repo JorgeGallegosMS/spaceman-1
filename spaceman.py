@@ -1,5 +1,8 @@
 import random
 import string
+from PIL import Image
+
+img = Image.open("ascii_image.png")
 
 alphabets = list(string.ascii_lowercase)
 letters_guessed = []
@@ -92,6 +95,7 @@ def spaceman(secret_word):
     
     # TODO: show the player information about the game according to the project spec
     
+    
     # TODO: Ask the player to guess one letter per round and check that it is only one letter
     tries = 1 * len(secret_word)
     keep_going = True
@@ -130,6 +134,7 @@ def spaceman(secret_word):
         
         if tries < 0:
             print("Game Over")
+            img.show()
             print("The word was {}, {} chars long".format(secret_word, len(secret_word)))
             keep_going = False
             
@@ -143,4 +148,6 @@ def spaceman(secret_word):
 # print(loaded_word)
 # get_guessed_word(loaded_word, letters_guessed)
 # get_guessed_word(loaded_word, letters_guessed)
-spaceman(load_word())
+# spaceman(load_word())
+
+img.show()
