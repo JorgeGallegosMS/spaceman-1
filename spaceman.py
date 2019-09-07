@@ -55,16 +55,15 @@ def get_guessed_word(secret_word, letters_guessed):
     
     # TODO: Loop through the letters in secret word and build a string that shows the letters that have been guessed
     #  correctly so far that are saved in letters_guessed and underscores for the letters that have not been guessed yet
-    
-    dashes = "_" * len(secret_word)
-    for i in letters_guessed:
-        if i in secret_word:
-            dashes[i] = i
-    print(dashes)
+    underscore_list = ["_" for _ in range(len(secret_word))]
+    for i, j in enumerate(secret_word):
+        if j in letters_guessed:
+            underscore_list[i] = j
+    print(underscore_list)
 
 
 def is_guess_in_word(guess, secret_word):
-    '''
+    """
     A function to check if the guessed letter is in the secret word
 
     Args:
@@ -74,7 +73,7 @@ def is_guess_in_word(guess, secret_word):
     Returns:
         bool: True if the guess is in the secret_word, False otherwise
 
-    '''
+    """
     # TODO: check if the letter guess is in the secret word
     letters_guessed.append(guess)
     if guess in secret_word:
@@ -83,19 +82,29 @@ def is_guess_in_word(guess, secret_word):
 
 
 def spaceman(secret_word):
-    '''
+    """
     A function that controls the game of spaceman. Will start spaceman in the command line.
 
     Args:
       secret_word (string): the secret word to guess.
 
-    '''
+    """
     
     # TODO: show the player information about the game according to the project spec
     
     # TODO: Ask the player to guess one letter per round and check that it is only one letter
+    keep_going = True
+    while keep_going:
+        guess = input("Enter an alphabet\n")
+        if len(guess) != 1 or not guess.isalpha():
+            continue
+        keep_going = False
     
     # TODO: Check if the guessed letter is in the secret or not and give the player feedback
+        if guess in secret_word:
+            pass
+        else:
+            pass
     
     # TODO: show the guessed word so far
     
@@ -107,4 +116,4 @@ def spaceman(secret_word):
 # spaceman(load_word())
 
 
-print(load_word())
+get_guessed_word('apple', letters_guessed)
