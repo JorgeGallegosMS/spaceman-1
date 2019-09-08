@@ -1,3 +1,10 @@
+"""
+Todos:
+print Letters that are yet to be guessed
+"""
+
+
+
 import random
 import string
 from PIL import Image
@@ -101,25 +108,22 @@ def spaceman(secret_word):
     keep_going = True
     while keep_going:
         guess = input("Enter an alphabet\n")
+        tries -= 1
         if len(guess) != 1 or not guess.isalpha():
             print("Enter only one Alphabet at a time\n")
-            tries -= 1
             continue
+        letters_guessed.append(guess)
         # keep_going = False
         
         # TODO: Check if the guessed letter is in the secret or not and give the player feedback
         if guess in secret_word:
-            letters_guessed.append(guess)
             get_guessed_word(secret_word, letters_guessed)
-            tries -= 1
             print(secret_word)
-            print("You got that right\n {} tries left to guess the rest of the letters".format(tries))
+            print("You got that letter right\n {} tries left to guess the rest of the letters".format(tries))
             print(" ".join(letters_guessed))
 
         elif guess not in secret_word:
             print(secret_word)
-            letters_guessed.append(guess)
-            tries -= 1
             get_guessed_word(secret_word, letters_guessed)
             print("Wrong letter, try again")
     
@@ -132,7 +136,7 @@ def spaceman(secret_word):
             print("You won!")
             keep_going = False
         
-        if tries < 0:
+        if tries == -1:
             print("Game Over")
             img.show()
             print("The word was {}, {} chars long".format(secret_word, len(secret_word)))
@@ -148,6 +152,21 @@ def spaceman(secret_word):
 # print(loaded_word)
 # get_guessed_word(loaded_word, letters_guessed)
 # get_guessed_word(loaded_word, letters_guessed)
-# spaceman(load_word())
 
-img.show()
+def play_game():
+    spaceman(load_word())
+    while True:
+        answer = input("Would you like to play again?[Y/N]\n")
+        if answer.upper() == 'Y':
+            spaceman(load_word())
+            continue
+        elif answer.upper() == "N":
+            break
+        else:
+            print("Choose either Y/N")
+            continue
+
+
+play_game()
+
+
