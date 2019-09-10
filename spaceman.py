@@ -1,8 +1,10 @@
 """
 Todos:
 print Letters that are yet to be guessed
+print out project specs before starting game
+tries need to be fixed
+tell attempts when guessed wrong
 """
-
 
 
 import random
@@ -92,6 +94,7 @@ def is_guess_in_word(guess, secret_word):
 
 
 def spaceman(secret_word):
+    tries = 1 * len(secret_word)
     """
     A function that controls the game of spaceman. Will start spaceman in the command line.
 
@@ -101,16 +104,17 @@ def spaceman(secret_word):
     """
     
     # TODO: show the player information about the game according to the project spec
-    
+    print("You have to guess a secret word which is {} characters long\none letter at a time. "
+          "Only input one alphabet each time and you'll know if the alphabet\n"
+          "is present in the words or is not. You have {} attempts".format(tries, tries))
     
     # TODO: Ask the player to guess one letter per round and check that it is only one letter
-    tries = 1 * len(secret_word)
     keep_going = True
     while keep_going:
         guess = input("Enter an alphabet\n")
         tries -= 1
         if len(guess) != 1 or not guess.isalpha():
-            print("Enter only one Alphabet at a time\n")
+            print("Only valid inout is one Alphabet at a time\n")
             continue
         letters_guessed.append(guess)
         # keep_going = False
@@ -125,7 +129,11 @@ def spaceman(secret_word):
         elif guess not in secret_word:
             print(secret_word)
             get_guessed_word(secret_word, letters_guessed)
-            print("Wrong letter, try again")
+            print("Wrong letter, try again\n{} attempts left".format(tries))
+            print("Here are the alphabets you have not guessed")
+            letters_to_be_guessed = list(set(alphabets) - set(letters_guessed))
+            for i in letters_to_be_guessed:
+                print(i, end=" ")
     
     # TODO: show the guessed word so far
         print("The letters you have guessed so far are:")
@@ -136,12 +144,12 @@ def spaceman(secret_word):
             print("You won!")
             keep_going = False
         
-        if tries == -1:
+        elif tries <= 0:
             print("Game Over")
             img.show()
             print("The word was {}, {} chars long".format(secret_word, len(secret_word)))
             keep_going = False
-            
+
 
 # These function calls that will start the game
 # secret_word = load_word()
@@ -158,6 +166,7 @@ def play_game():
     while True:
         answer = input("Would you like to play again?[Y/N]\n")
         if answer.upper() == 'Y':
+            letters_guessed.clear()
             spaceman(load_word())
             continue
         elif answer.upper() == "N":
