@@ -178,4 +178,6 @@ def play_game():
 
 play_game()
 
+# code is concise and readable. Variable names are easy to understand
 
+# could add more comments and remove TODOS after completion
